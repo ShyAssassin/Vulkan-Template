@@ -1,0 +1,29 @@
+# Set versions
+cmake_minimum_required(VERSION 3.1)
+set(CMAKE_CXX_STANDARD 17)
+
+# Set project name
+project(Vulkan-Template)
+
+# Set directories
+set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
+
+# Add libraries from bin/
+add_subdirectory(${CMAKE_SOURCE_DIR}/lib/GLFW)
+add_subdirectory(${CMAKE_SOURCE_DIR}/lib/glm)
+find_package(Vulkan REQUIRED)
+
+# Include header files and source files
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+include_directories(${CMAKE_SOURCE_DIR}/include)
+file(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.c)
+file(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
+
+add_executable(Vulkan-Template ${SOURCES})
+
+# Links libraries to executable
+target_link_libraries (Vulkan-Template Vulkan::Vulkan)
+target_link_libraries(Vulkan-Template glfw)
+target_link_libraries(Vulkan-Template glm)
