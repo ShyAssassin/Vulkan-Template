@@ -7,8 +7,9 @@ project(Vulkan-Template)
 
 # Set directories
 set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/bin)
-set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin/lib)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
 # Add libraries from bin/
 add_subdirectory(${CMAKE_SOURCE_DIR}/lib/GLFW)
@@ -22,6 +23,9 @@ file(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.c)
 file(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
 add_executable(Vulkan-Template ${SOURCES})
+
+# set properties
+set_target_properties(Vulkan-Template PROPERTIES RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR})
 
 # Links libraries to executable
 target_link_libraries (Vulkan-Template Vulkan::Vulkan)
